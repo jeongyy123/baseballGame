@@ -1,9 +1,8 @@
 //블로거가 올린거 
 const prompt=require("prompt-sync")({sigint:true}); 
 
-
-// 답안 생성
 function setAnswer() {
+    //랜덤값
     let answer = '';
     while (answer.length < 3) {
         const randomNum = Math.floor(Math.random() * 10);
@@ -11,6 +10,7 @@ function setAnswer() {
             answer += randomNum
         };
     }
+    //답안
     let count = 0;
     console.log(`컴퓨터가 숫자(${answer})를 생성하였습니다. 답을 맞춰보세요!`);
     getValue(answer, count);
@@ -32,7 +32,7 @@ function checkValue() {
     return value;
 }
 
-// 입력값과 답안 비교
+// 입력값과 랜덤값 비교
 function getValue(answer, count) {
     let value = checkValue();
     if (!value) return;
@@ -42,15 +42,22 @@ function getValue(answer, count) {
     let s = 0, b = 0;
     let str = '';
     value.split('').forEach((e, idx) => {
-        if (answer.indexOf(e) === idx) s++;
-        else if (answer.split('').includes(e)) b++;
-    })
+        if (answer.indexOf(e) === idx) {
+            s++
+        } else if (answer.split('').includes(e)) {
+            b++
+        };
+    });
 
-    if (s === 3) str = `${s}S`;
-    else if (b === 3) str = `${b}B`;
-    else str = `${b}B${s}S`;
+    if (s === 3) {
+        str = `${s}S`
+    } else if (b === 3) {
+        str = `${b}B`
+    } else { 
+        str = `${b}B${s}S`
+    };
     console.log(str);
-    answer !== value ? getValue(answer, count) : console.log(`${count}번만에 맞히셨습니다.\n게임을 종료합니다.`);
+    (answer !== value) ? getValue(answer, count) : console.log(`${count}번만에 맞히셨습니다.\n게임을 종료합니다.`);
 }
 
 setAnswer();
